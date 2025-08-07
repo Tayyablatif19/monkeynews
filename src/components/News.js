@@ -8,6 +8,7 @@ const News = () => {
   const [totalResults, setTotalResults] = useState(0);
 
   const apiKey = "REMOVING API FOR SECURITY REASONS";
+  //include your actual API key here
 
   const updateNews = async () => {
     setLoading(true);

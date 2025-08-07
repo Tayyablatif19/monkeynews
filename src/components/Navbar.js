@@ -19,7 +19,9 @@ export class Navbar extends Component {
             aria-label="Toggle navigation"
           >
             <span className="navbar-toggler-icon"></span>
+            
           </button>
+          
 
           {/* Collapsible links */}
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
