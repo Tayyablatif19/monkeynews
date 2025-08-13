@@ -7,7 +7,7 @@ const News = () => {
   const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
 
-  const apiKey = "REMOVING API FOR SECURITY REASONS";
+  const apiKey = "API_KEY_HERE";  // Replace with your actual API key
   //include your actual API key here
 
   const updateNews = async () => {
@@ -15,7 +15,7 @@ const News = () => {
     let url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}&page=${page}&pageSize=12`;
     let data = await fetch(url);
     let parsedData = await data.json();
-    setArticles(parsedData.articles);
+    setArticles(Array.isArray(parsedData.articles) ? parsedData.articles : []);
     setTotalResults(parsedData.totalResults);
     setLoading(false);
   };
@@ -26,11 +26,15 @@ const News = () => {
   }, [page]);
 
   const handlePrevClick = () => {
+  if (page > 1) {
     setPage(page - 1);
+  }
   };
 
   const handleNextClick = () => {
+  if (page + 1 <= Math.ceil(totalResults / 12)) {
     setPage(page + 1);
+  }
   };
 
   return (
@@ -46,8 +50,9 @@ const News = () => {
       )}
 
       <div className="row">
-        {!loading &&
-          articles.map((element) => {
+          <div className="row">
+            {!loading &&
+              (articles || []).map((element) => {
             return (
               <div className="col-md-4 d-flex" key={element.url}>
                 <NewsItem
@@ -62,6 +67,7 @@ const News = () => {
               </div>
             );
           })}
+            </div>
       </div>
 
       <div className="d-flex justify-content-between mt-4">
